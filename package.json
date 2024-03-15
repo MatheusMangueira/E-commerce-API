@@ -26,6 +26,7 @@
     "typescript": "^5.4.2"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "ts-node-dev src/index.ts"
   }
 }
