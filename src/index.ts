@@ -1,4 +1,5 @@
-import { server } from './server/Server';
+import { Server } from './server/Server';
 
 
-server.listen(3000, () => { });
+const server = new Server();
+server.listen(3000);

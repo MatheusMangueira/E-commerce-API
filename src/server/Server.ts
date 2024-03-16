@@ -1,11 +1,23 @@
-import express from 'express';
-import { router } from './routes';
+import 'reflect-metadata';
+import express, { Application } from 'express';
+import { AllRouter } from './routes';
+
+export class Server {
+  private app: Application;
+  constructor() {
+    this.app = express();
+    this.config();
+  }
 
 
-const server = express();
+  config() {
+    this.app.use(express.json());
+    const productRouter = new AllRouter().getRouter();
+    this.app.use(productRouter);
+  }
 
-server.use(express.json());
-server.use(router);
+  listen(port: number) {
+    this.app.listen(port, () => { });
+  }
 
-
-export { server };
+}
