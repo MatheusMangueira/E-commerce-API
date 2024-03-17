@@ -1,10 +1,11 @@
 import { IsNotEmpty, MinLength, IsInt, Min } from 'class-validator';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { v4 as uuid } from 'uuid';
 
 @Entity('product')
 export class ProductModel {
   @PrimaryGeneratedColumn()
-    id: number;
+    id: string;
 
   @Column()
   @IsNotEmpty({ message: 'O nome do produto é obrigatório' })
@@ -28,4 +29,11 @@ export class ProductModel {
   @Column()
   @IsNotEmpty({ message: 'A imagem do produto é obrigatória' })
     productImage: string;
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
+    }
+  }
+
 }
