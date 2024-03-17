@@ -1,35 +1,37 @@
 {
-  "name": "ecommerce",
-  "version": "1.0.0",
-  "main": "index.js",
-  "author": "MatheusMangueira",
-  "license": "MIT",
-  "private": false,
-  "dependencies": {
-    "@types/jest": "^29.5.12",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.1",
-    "dotenv": "^16.4.5",
-    "express": "^4.18.3",
-    "http-status-codes": "^2.3.0",
-    "jest": "^29.7.0",
-    "reflect-metadata": "^0.2.1",
-    "ts-jest": "^29.1.2",
-    "typeorm": "^0.3.20"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/http-status-codes": "^1.2.0",
-    "@types/supertest": "^6.0.2",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
-    "eslint": "^8.57.0",
-    "supertest": "^6.3.4",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.4.2"
-  },
-  "scripts": {
-    "test": "jest",
-    "start": "ts-node-dev src/index.ts"
-  }
+    "name": "ecommerce",
+    "version": "1.0.0",
+    "main": "index.js",
+    "author": "MatheusMangueira",
+    "license": "MIT",
+    "private": false,
+    "dependencies": {
+        "@types/jest": "^29.5.12",
+        "class-transformer": "^0.5.1",
+        "class-validator": "^0.14.1",
+        "dotenv": "^16.4.5",
+        "express": "^4.18.3",
+        "http-status-codes": "^2.3.0",
+        "jest": "^29.7.0",
+        "pg": "^8.11.3",
+        "reflect-metadata": "^0.2.1",
+        "ts-jest": "^29.1.2",
+        "typeorm": "^0.3.20"
+    },
+    "devDependencies": {
+        "@types/express": "^4.17.21",
+        "@types/http-status-codes": "^1.2.0",
+        "@types/supertest": "^6.0.2",
+        "@typescript-eslint/eslint-plugin": "^7.2.0",
+        "@typescript-eslint/parser": "^7.2.0",
+        "eslint": "^8.57.0",
+        "supertest": "^6.3.4",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.4.2"
+    },
+    "scripts": {
+        "test": "jest",
+        "start": "ts-node-dev src/index.ts",
+        "docker:local": "docker-compose up -d"
+    }
 }

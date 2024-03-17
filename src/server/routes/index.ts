@@ -1,22 +1,27 @@
-import { Router } from 'express';
-import { ProductController } from '../controllers';
-
-
+import { Router } from "express";
+import { ProductController } from "../controllers";
 
 export class AllRouter {
-  private router: Router;
+    private router: Router;
 
-  constructor() {
-    this.router = Router();
-    this.setupRoutes();
-  }
+    constructor() {
+        this.router = Router();
+        this.setupRoutes();
+    }
 
-  private setupRoutes() {
-    this.router.post('/produtos', ProductController.validation, ProductController.create);
-  }
+    private productRoutes() {
+        this.router.post(
+            "/produtos",
+            ProductController.validation,
+            ProductController.create
+        );
+    }
 
+    private setupRoutes() {
+        this.productRoutes();
+    }
 
-  public getRouter() {
-    return this.router;
-  }
+    public getRouter() {
+        return this.router;
+    }
 }
