@@ -1,8 +1,6 @@
 import { Router } from 'express';
 import { ProductController } from '../controllers';
 
-
-
 export class AllRouter {
   private router: Router;
 
@@ -11,8 +9,16 @@ export class AllRouter {
     this.setupRoutes();
   }
 
+  private productRoutes() {
+    this.router.post(
+      '/produtos',
+      ProductController.validation,
+      ProductController.create
+    );
+  }
+
   private setupRoutes() {
-    this.router.post('/produtos', ProductController.validation, ProductController.create);
+    this.productRoutes();
   }
 
 
