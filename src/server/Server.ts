@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import express, { Application } from 'express';
 import { AllRouter } from './routes';
+import 'dotenv/config';
 
 export class Server {
   private app: Application;
@@ -8,7 +9,6 @@ export class Server {
     this.app = express();
     this.config();
   }
-
 
   config() {
     this.app.use(express.json());
@@ -21,3 +21,5 @@ export class Server {
   }
 
 }
+
+

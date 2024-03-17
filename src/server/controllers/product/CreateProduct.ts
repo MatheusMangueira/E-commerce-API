@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { ValidatorMiddleware } from '../../shared/middleware';
 import { ProductModel } from '../../model';
+import { createService } from '../../shared/factory';
 
 type Product = {
   name: string;
@@ -19,17 +20,16 @@ export class ProductController {
 
   static async create(req: Request<{}, {}, Product>, res: Response) {
     try {
-      const newProduct = new ProductModel();
-      newProduct.name = req.body.name;
-      newProduct.stock = req.body.stock;
-      newProduct.price = req.body.price;
-      newProduct.description = req.body.description;
-      newProduct.productImage = req.body.productImage;
-
-      return res.status(StatusCodes.CREATED).json({ message: 'Product created', product: newProduct });
+      const newProduct = await createService.create(req.body);
+      return res
+        .status(StatusCodes.CREATED)
+        .json({ message: 'Product created', product: newProduct });
     } catch (error) {
+      console.log(error, 'erro no controller');
 
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ message: 'Internal Server Error' });
     }
   }
 
