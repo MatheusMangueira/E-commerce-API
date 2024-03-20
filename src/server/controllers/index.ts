@@ -1,1 +1,1 @@
-export * from './product/CreateProduct';
+export * from './product/ProductController';

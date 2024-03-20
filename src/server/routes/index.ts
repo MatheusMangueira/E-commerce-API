@@ -10,11 +10,11 @@ export class AllRouter {
   }
 
   private productRoutes() {
-    this.router.post(
-      '/produtos',
-      ProductController.validation,
-      ProductController.create
-    );
+    this.router.post('/produtos', ProductController.validation, ProductController.create);
+    this.router.get('/produtos', ProductController.getAll);
+    this.router.get('/produtos/:id', ProductController.getById);
+    this.router.put('/produtos/:id', ProductController.validation, ProductController.update);
+    this.router.delete('/produtos/:id', ProductController.delete);
   }
 
   private setupRoutes() {
