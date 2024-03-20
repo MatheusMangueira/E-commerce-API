@@ -3,7 +3,6 @@ import { ProductModel } from '../../model';
 import 'dotenv/config';
 
 
-
 export const AppDataSource = new DataSource({
   type: 'postgres',
   host: process.env.DATABASE_HOST,

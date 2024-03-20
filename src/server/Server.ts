@@ -1,25 +1,13 @@
 import 'reflect-metadata';
-import express, { Application } from 'express';
+import express from 'express';
 import { AllRouter } from './routes';
 import 'dotenv/config';
 
-export class Server {
-  private app: Application;
-  constructor() {
-    this.app = express();
-    this.config();
-  }
+const router = new AllRouter().getRouter();
 
-  config() {
-    this.app.use(express.json());
-    const productRouter = new AllRouter().getRouter();
-    this.app.use(productRouter);
-  }
+export const App = express();
 
-  listen(port: number) {
-    this.app.listen(port, () => { });
-  }
-
-}
+App.use(express.json());
+App.use(router);
 
 

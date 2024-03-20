@@ -1,7 +1,5 @@
-import { Server } from './server/Server';
+import { App } from './server/Server';
 import { AppDataSource } from './server/config/database';
-
-
 
 AppDataSource
   .initialize()
@@ -13,6 +11,5 @@ AppDataSource
   });
 
 
-const server = new Server();
+App.listen(process.env.PORT || 3000);
 
-server.listen(3000);
