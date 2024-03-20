@@ -158,7 +158,7 @@ const config: Config = {
   // testMatch: [
   //   '<rootDir>/tests/**/*.test.ts'
   // ],
-  testMatch: ['**/**/*.test.ts'],
+  testMatch: ['**/**/*.test.ts', '<rootDir>/tests/**/*.test.ts'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
@@ -196,6 +196,7 @@ const config: Config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
+
 };
 
 export default config;
