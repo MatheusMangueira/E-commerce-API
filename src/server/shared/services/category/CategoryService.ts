@@ -6,14 +6,18 @@ export class CategoryService {
   constructor(private categoryRepository: Repository<CategoryModel>) { }
 
   async create(category: CategoryDto) {
+    try {
+      const createCategory = this.categoryRepository.create({
+        ...category
+      });
 
-    const createCategory = this.categoryRepository.create({
-      ...category
-    });
+      const repository = await this.categoryRepository.save(createCategory);
 
-    const repository = await this.categoryRepository.save(createCategory);
-
-    return repository;
+      return repository;
+    } catch (error) {
+      console.log(error, 'erro no service, create()');
+      throw new Error('Internal Server Error');
+    }
   }
 
   async getAll(page: number = 1, limit: number = 10): Promise<CategoryDto[]> {

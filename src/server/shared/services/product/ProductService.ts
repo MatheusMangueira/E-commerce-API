@@ -6,19 +6,23 @@ export class ProductService {
   constructor(private productRepository: Repository<ProductModel>) { }
 
   async create(product: ProductDto) {
-    console.log(product.name, 'console do service, post()');
+    try {
+      const category = product.category;
 
-    const category = product.category;
+      if (!category) {
+        throw new Error('Category is required');
+      }
 
-    if (!category) {
-      throw new Error('Category is required');
+      const createProduct = this.productRepository.create({
+        ...product,
+        category
+      });
+      return await this.productRepository.save(createProduct);
+    } catch (error) {
+      console.log(error, 'erro no service, create()');
+      throw new Error('Internal Server Error');
     }
 
-    const createProduct = this.productRepository.create({
-      ...product,
-      category
-    });
-    return await this.productRepository.save(createProduct);
   }
 
   async getAll(page: number = 1, limit: number = 10): Promise<ProductDto[]> {
