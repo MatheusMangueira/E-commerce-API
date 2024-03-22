@@ -33,4 +33,23 @@ export class CategoryService {
       throw new Error('Internal Server Error');
     }
   }
+
+  async getId(id: string): Promise<CategoryDto> {
+    try {
+      const category = await this.categoryRepository.findOne({
+        where: { id }
+      });
+
+      if (!category) {
+        throw new Error('Category not found');
+      }
+
+      return category;
+
+    } catch (error) {
+      console.log(error, 'erro no service, getById()');
+      throw new Error('Internal Server Error');
+    }
+
+  }
 }
