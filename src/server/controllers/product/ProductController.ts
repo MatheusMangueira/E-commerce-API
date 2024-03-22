@@ -1,16 +1,9 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { ValidatorMiddleware } from '../../shared/middleware';
-import { ProductModel } from '../../model';
 import { productServiceInstance } from '../../shared/factory';
+import { ProductDto } from '../../DTOs/index';
 
-export type Product = {
-  name: string;
-  stock: number;
-  price: number;
-  description: string;
-  productImage: string;
-}
 
 type Pagination = {
   page: string;
@@ -20,11 +13,11 @@ type Pagination = {
 
 export class ProductController {
   static validation = ValidatorMiddleware.validator({
-    schema: ProductModel,
+    schema: ProductDto,
     fieldsToValidate: ['body']
   });
 
-  static async create(req: Request<{}, {}, Product>, res: Response) {
+  static async create(req: Request<{}, {}, ProductDto>, res: Response) {
     try {
       const newProduct = await productServiceInstance.create(req.body);
       return res

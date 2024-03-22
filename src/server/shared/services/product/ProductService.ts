@@ -1,23 +1,31 @@
 import { FindManyOptions, Repository } from 'typeorm';
+import { ProductDto } from '../../../DTOs';
 import { ProductModel } from '../../../model';
 
 export class ProductService {
   constructor(private productRepository: Repository<ProductModel>) { }
 
-  async create(product: Omit<ProductModel, 'id'>) {
+  async create(product: ProductDto) {
     console.log(product.name, 'console do service, post()');
 
+    const category = product.category;
 
-    const createProduct = this.productRepository.create(product);
+    if (!category) {
+      throw new Error('Category is required');
+    }
 
+    const createProduct = this.productRepository.create({
+      ...product,
+      category
+    });
     return await this.productRepository.save(createProduct);
   }
 
-  async getAll(page: number = 1, limit: number = 10): Promise<ProductModel[]> {
+  async getAll(page: number = 1, limit: number = 10): Promise<ProductDto[]> {
     try {
       const skip = (page - 1) * limit;
 
-      const options: FindManyOptions<ProductModel> = {
+      const options: FindManyOptions<ProductDto> = {
         skip,
         take: limit
       };
@@ -33,9 +41,9 @@ export class ProductService {
   }
 
 
-  async getById(id: string): Promise<ProductModel> {
+  async getById(id: string): Promise<ProductDto> {
     try {
-      const product: FindManyOptions<ProductModel> = {
+      const product: FindManyOptions<ProductDto> = {
         where: { id }
       };
 
@@ -53,10 +61,10 @@ export class ProductService {
     }
   }
 
-  async update(id: string, product: ProductModel) {
+  async update(id: string, product: ProductDto) {
     try {
 
-      const productId: FindManyOptions<ProductModel> = {
+      const productId: FindManyOptions<ProductDto> = {
         where: { id }
       };
 
@@ -81,7 +89,7 @@ export class ProductService {
 
   async delete(id: string) {
     try {
-      const productId: FindManyOptions<ProductModel> = {
+      const productId: FindManyOptions<ProductDto> = {
         where: { id }
       };
 
