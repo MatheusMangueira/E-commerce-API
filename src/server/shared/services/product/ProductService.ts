@@ -6,31 +6,33 @@ export class ProductService {
   constructor(private productRepository: Repository<ProductModel>) { }
 
   async create(product: ProductDto) {
-    console.log(product.name, 'console do service, post()');
+    try {
+      const category = product.category;
 
-    const category = product.category;
+      if (!category) {
+        throw new Error('Category is required');
+      }
 
-    if (!category) {
-      throw new Error('Category is required');
+      const createProduct = this.productRepository.create({
+        ...product,
+        category
+      });
+      return await this.productRepository.save(createProduct);
+    } catch (error) {
+      console.log(error, 'erro no service, create()');
+      throw new Error('Internal Server Error');
     }
 
-    const createProduct = this.productRepository.create({
-      ...product,
-      category
-    });
-    return await this.productRepository.save(createProduct);
   }
 
   async getAll(page: number = 1, limit: number = 10): Promise<ProductDto[]> {
     try {
       const skip = (page - 1) * limit;
 
-      const options: FindManyOptions<ProductDto> = {
+      const products = await this.productRepository.find({
         skip,
         take: limit
-      };
-
-      const products = await this.productRepository.find(options);
+      });
 
       return products;
 
@@ -43,11 +45,10 @@ export class ProductService {
 
   async getById(id: string): Promise<ProductDto> {
     try {
-      const product: FindManyOptions<ProductDto> = {
-        where: { id }
-      };
 
-      const productById = await this.productRepository.findOne(product);
+      const productById = await this.productRepository.findOne({
+        where: { id }
+      });
 
       if (!productById) {
         throw new Error('Product not found');
@@ -61,22 +62,20 @@ export class ProductService {
     }
   }
 
-  async update(id: string, product: ProductDto) {
+  async update(id: string, data: ProductDto) {
     try {
 
-      const productId: FindManyOptions<ProductDto> = {
+      const product = await this.productRepository.findOne({
         where: { id }
-      };
+      });
 
-      const productToUpdate = await this.productRepository.findOne(productId);
-
-      if (!productToUpdate) {
+      if (!product) {
         throw new Error('Product not found');
       }
 
       const updatedProduct = await this.productRepository.save({
-        ...productToUpdate,
-        ...product
+        ...product,
+        ...data
       });
 
       return updatedProduct;
@@ -89,11 +88,9 @@ export class ProductService {
 
   async delete(id: string) {
     try {
-      const productId: FindManyOptions<ProductDto> = {
+      const productToDelete = await this.productRepository.findOne({
         where: { id }
-      };
-
-      const productToDelete = await this.productRepository.findOne(productId);
+      });
 
       if (!productToDelete) {
         throw new Error('Product not found');

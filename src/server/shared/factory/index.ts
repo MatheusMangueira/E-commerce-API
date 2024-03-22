@@ -1,8 +1,7 @@
 import { AppDataSource } from '../../config/database';
-import { ProductModel } from '../../model';
-import { CategoryModel } from '../../model/category/categoryModel';
-import { CategoryService } from '../services/category/CategoryService';
-import { ProductService } from '../services/product/ProductService';
+import { ProductModel, UserModal, CategoryModel } from '../../model';
+import { ProductService, CategoryService, UserService } from '../services';
+
 
 
 export const productServiceInstance = new ProductService(
@@ -11,4 +10,8 @@ export const productServiceInstance = new ProductService(
 
 export const categoryServiceInstance = new CategoryService(
   AppDataSource.getRepository(CategoryModel)
+);
+
+export const userServiceInstance = new UserService(
+  AppDataSource.getRepository(UserModal)
 );

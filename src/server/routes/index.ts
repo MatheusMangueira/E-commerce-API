@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { ProductController } from '../controllers';
 import { CategoryController } from '../controllers/category/CategoryController';
+import { UserController } from '../controllers/user/UserController';
 
 export class AllRouter {
   private router: Router;
@@ -20,11 +21,20 @@ export class AllRouter {
 
   private categoryRoutes() {
     this.router.post('/categorias', CategoryController.validation, CategoryController.create);
+    this.router.get('/categorias', CategoryController.getAll);
+    this.router.get('/categorias/:id', CategoryController.getById);
+    this.router.delete('/categorias/:id', CategoryController.delete);
+    this.router.put('/categorias/:id', CategoryController.validation, CategoryController.update);
+  }
+
+  private userRoutes() {
+    this.router.post('/usuario', UserController.validation, UserController.create);
   }
 
   private setupRoutes() {
     this.productRoutes();
     this.categoryRoutes();
+    this.userRoutes();
   }
 
 
