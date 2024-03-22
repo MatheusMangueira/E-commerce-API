@@ -58,22 +58,20 @@ export class ProductService {
     }
   }
 
-  async update(id: string, product: ProductDto) {
+  async update(id: string, data: ProductDto) {
     try {
 
-      const productId: FindManyOptions<ProductDto> = {
+      const product = await this.productRepository.findOne({
         where: { id }
-      };
+      });
 
-      const productToUpdate = await this.productRepository.findOne(productId);
-
-      if (!productToUpdate) {
+      if (!product) {
         throw new Error('Product not found');
       }
 
       const updatedProduct = await this.productRepository.save({
-        ...productToUpdate,
-        ...product
+        ...product,
+        ...data
       });
 
       return updatedProduct;
