@@ -25,12 +25,10 @@ export class ProductService {
     try {
       const skip = (page - 1) * limit;
 
-      const options: FindManyOptions<ProductDto> = {
+      const products = await this.productRepository.find({
         skip,
         take: limit
-      };
-
-      const products = await this.productRepository.find(options);
+      });
 
       return products;
 
