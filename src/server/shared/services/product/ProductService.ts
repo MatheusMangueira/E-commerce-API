@@ -7,9 +7,16 @@ export class ProductService {
   async create(product: Omit<ProductModel, 'id'>) {
     console.log(product.name, 'console do service, post()');
 
+    const category = product.category;
+    
+    if (!category) {
+      throw new Error('Category is required');
+    }
 
-    const createProduct = this.productRepository.create(product);
-
+    const createProduct = this.productRepository.create({
+      ...product,
+      category
+    });
     return await this.productRepository.save(createProduct);
   }
 

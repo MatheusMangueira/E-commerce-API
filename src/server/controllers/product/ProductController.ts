@@ -3,13 +3,16 @@ import { StatusCodes } from 'http-status-codes';
 import { ValidatorMiddleware } from '../../shared/middleware';
 import { ProductModel } from '../../model';
 import { productServiceInstance } from '../../shared/factory';
+import { CategoryModel } from '../../model/category/categoryModel';
 
-export type Product = {
+
+type Product = {
   name: string;
   stock: number;
   price: number;
   description: string;
   productImage: string;
+  category: CategoryModel
 }
 
 type Pagination = {

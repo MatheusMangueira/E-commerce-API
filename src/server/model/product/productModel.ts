@@ -1,12 +1,18 @@
 import { IsNotEmpty, MinLength, IsInt, Min } from 'class-validator';
-import { Entity, Column, Unique, PrimaryColumn } from 'typeorm';
+import { Entity, Column, Unique, PrimaryColumn, ManyToOne, JoinColumn, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { CategoryModel } from '../category/categoryModel';
 
 @Entity('product')
 @Unique(['name'])
 export class ProductModel {
-  @PrimaryColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
     id: string;
+
+    @ManyToOne(type => CategoryModel, category => category.product)
+    @JoinColumn({ name: 'category_id' })
+      category: CategoryModel;
+    
 
   @Column()
   @IsNotEmpty({ message: 'O nome do produto é obrigatório' })
@@ -30,11 +36,5 @@ export class ProductModel {
   @Column()
   @IsNotEmpty({ message: 'A imagem do produto é obrigatória' })
     productImage: string;
-
-  constructor() {
-    if (!this.id) {
-      this.id = uuid();
-    }
-  }
 
 }
