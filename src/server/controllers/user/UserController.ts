@@ -4,7 +4,10 @@ import { UserDto } from '../../DTOs';
 import { ValidatorMiddleware } from '../../shared/middleware';
 import { userServiceInstance } from '../../shared/factory';
 
-
+type Pagination = {
+  page: string;
+  limit: string;
+}
 
 export class UserController {
 
@@ -28,6 +31,28 @@ export class UserController {
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json({ message: 'Internal Server Error' });
     }
+  }
+
+  static async getAll(req: Request<{}, {}, {}, Pagination>, res: Response) {
+
+    try {
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
+
+      const users = await userServiceInstance.getAll(page, limit);
+
+      return res
+        .status(StatusCodes.OK)
+        .json({ message: 'Users found', user: users });
+
+    } catch (error) {
+      console.log(error, 'erro no controller, getAll()');
+
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ message: 'Internal Server Error' });
+    }
+
   }
 
 
