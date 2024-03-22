@@ -94,4 +94,24 @@ export class CategoryController {
     }
   }
 
+  static async update(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const category = req.body;
+
+      const updatedCategory = await categoryServiceInstance.update(id, category);
+
+      return res
+        .status(StatusCodes.OK)
+        .json({ message: 'Category updated', category: updatedCategory });
+
+    } catch (error) {
+      console.log(error, 'erro no controller, update()');
+
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ message: 'Internal Server Error' });
+    }
+  }
+
 }

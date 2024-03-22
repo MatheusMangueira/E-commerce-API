@@ -23,6 +23,7 @@ export class AllRouter {
     this.router.get('/categorias', CategoryController.getAll);
     this.router.get('/categorias/:id', CategoryController.getById);
     this.router.delete('/categorias/:id', CategoryController.delete);
+    this.router.put('/categorias/:id', CategoryController.validation, CategoryController.update);
   }
 
   private setupRoutes() {

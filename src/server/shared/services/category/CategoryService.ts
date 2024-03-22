@@ -71,4 +71,28 @@ export class CategoryService {
       throw new Error('Internal Server Error');
     }
   }
+
+  async update(id: string, data: CategoryDto) {
+    try {
+      const category = await this.categoryRepository.findOne({
+        where: { id }
+      });
+
+      if (!category) {
+        throw new Error('Category not found');
+      }
+
+      const updatedCategory = await this.categoryRepository.save({
+        ...category,
+        ...data
+      });
+
+      return updatedCategory;
+
+    } catch (error) {
+      console.log(error, 'erro no service, update()');
+      throw new Error('Internal Server Error');
+    }
+
+  }
 }
