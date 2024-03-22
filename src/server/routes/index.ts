@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ProductController } from '../controllers';
+import { CategoryController } from '../controllers/category/CategoryController';
 
 export class AllRouter {
   private router: Router;
@@ -17,8 +18,13 @@ export class AllRouter {
     this.router.delete('/produtos/:id', ProductController.delete);
   }
 
+  private categoryRoutes() {
+    this.router.post('/categorias', CategoryController.create);
+  }
+
   private setupRoutes() {
     this.productRoutes();
+    this.categoryRoutes();
   }
 
 
