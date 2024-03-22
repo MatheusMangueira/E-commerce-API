@@ -4,6 +4,11 @@ import { CategoryDto } from '../../DTOs';
 import { ValidatorMiddleware } from '../../shared/middleware';
 
 
+type Pagination = {
+  page: string;
+  limit: string;
+}
+
 export class CategoryController {
 
   static validation = ValidatorMiddleware.validator({
@@ -29,7 +34,26 @@ export class CategoryController {
         .json({ message: 'Internal Server Error' });
     }
 
+  }
 
+  static async getAll(req: Request<{}, {}, {}, Pagination>, res: Response) {
+    try {
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
+
+      const categories = await categoryServiceInstance.getAll(page, limit);
+      
+      return res
+        .status(200)
+        .json({ message: 'Categories found', category: categories });
+
+    } catch (error) {
+      console.log(error, 'erro no controller, getAll()');
+
+      return res
+        .status(500)
+        .json({ message: 'Internal Server Error' });
+    }
   }
 
 }
