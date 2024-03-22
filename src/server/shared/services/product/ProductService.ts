@@ -41,11 +41,10 @@ export class ProductService {
 
   async getById(id: string): Promise<ProductDto> {
     try {
-      const product: FindManyOptions<ProductDto> = {
-        where: { id }
-      };
 
-      const productById = await this.productRepository.findOne(product);
+      const productById = await this.productRepository.findOne({
+        where: { id }
+      });
 
       if (!productById) {
         throw new Error('Product not found');
