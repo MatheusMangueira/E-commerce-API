@@ -50,6 +50,25 @@ export class CategoryService {
       console.log(error, 'erro no service, getById()');
       throw new Error('Internal Server Error');
     }
+  }
 
+  async delete(id: string) {
+    try {
+      const categoryDelete = await this.categoryRepository.findOne({
+        where: { id }
+      });
+
+      if (!categoryDelete) {
+        throw new Error('Category not found');
+      }
+
+      await this.categoryRepository.delete(id);
+
+      return { message: 'Category deleted' };
+    }
+    catch (error) {
+      console.log(error, 'erro no service, delete()');
+      throw new Error('Internal Server Error');
+    }
   }
 }

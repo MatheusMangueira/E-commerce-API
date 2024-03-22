@@ -22,6 +22,7 @@ export class AllRouter {
     this.router.post('/categorias', CategoryController.validation, CategoryController.create);
     this.router.get('/categorias', CategoryController.getAll);
     this.router.get('/categorias/:id', CategoryController.getById);
+    this.router.delete('/categorias/:id', CategoryController.delete);
   }
 
   private setupRoutes() {

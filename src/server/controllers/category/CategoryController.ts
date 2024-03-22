@@ -76,4 +76,22 @@ export class CategoryController {
     }
   }
 
+  static async delete(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      await categoryServiceInstance.delete(id);
+
+      return res
+        .status(StatusCodes.OK)
+        .json({ message: 'Category deleted' });
+    } catch (error) {
+      console.log(error, 'erro no controller, delete()');
+
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ message: 'Internal Server Error' });
+    }
+  }
+
 }
