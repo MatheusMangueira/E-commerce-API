@@ -86,11 +86,9 @@ export class ProductService {
 
   async delete(id: string) {
     try {
-      const productId: FindManyOptions<ProductDto> = {
+      const productToDelete = await this.productRepository.findOne({
         where: { id }
-      };
-
-      const productToDelete = await this.productRepository.findOne(productId);
+      });
 
       if (!productToDelete) {
         throw new Error('Product not found');
