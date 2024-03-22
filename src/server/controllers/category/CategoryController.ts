@@ -1,12 +1,18 @@
 import { Request, Response } from 'express';
 import { categoryServiceInstance, productServiceInstance } from '../../shared/factory';
+import { CategoryDto } from '../../DTOs';
+import { ValidatorMiddleware } from '../../shared/middleware';
 
-type category = {
-  name: string;
-}
 
 export class CategoryController {
-  static async create(req: Request<{}, {}, category>, res: Response) {
+
+  static validation = ValidatorMiddleware.validator({
+    schema: CategoryDto,
+    fieldsToValidate: ['body']
+  });
+
+
+  static async create(req: Request<{}, {}, CategoryDto>, res: Response) {
     console.log('create category');
     try {
       const newCategory = await categoryServiceInstance.create(req.body);

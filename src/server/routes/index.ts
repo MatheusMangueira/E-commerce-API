@@ -19,7 +19,7 @@ export class AllRouter {
   }
 
   private categoryRoutes() {
-    this.router.post('/categorias', CategoryController.create);
+    this.router.post('/categorias', CategoryController.validation, CategoryController.create);
   }
 
   private setupRoutes() {
