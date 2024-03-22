@@ -29,6 +29,7 @@ export class AllRouter {
 
   private userRoutes() {
     this.router.post('/usuario', UserController.validation, UserController.create);
+    this.router.get('/usuario', UserController.getAll);
   }
 
   private setupRoutes() {
