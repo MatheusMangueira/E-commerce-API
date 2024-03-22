@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { categoryServiceInstance, productServiceInstance } from '../../shared/factory';
-import { ProductModel } from '../../model';
 
 type category = {
   name: string;
