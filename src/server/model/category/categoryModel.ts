@@ -11,8 +11,6 @@ export class CategoryModel {
     id: string;
 
   @Column()
-  @IsNotEmpty({ message: 'O nome da categoria é obrigatório' })
-  @MinLength(3, { message: 'O nome da categoria deve ter no mínimo 3 caracteres' })
     name: string;
 
   @OneToMany(type => ProductModel, product => product.category)
