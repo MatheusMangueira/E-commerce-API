@@ -52,7 +52,25 @@ export class UserController {
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json({ message: 'Internal Server Error' });
     }
+  }
 
+  static async delete(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      const userDelete = await userServiceInstance.delete(id);
+
+      return res
+        .status(StatusCodes.OK)
+        .json(userDelete);
+
+    } catch (error) {
+      console.log(error, 'erro no controller, delete()');
+
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ message: 'Internal Server Error' });
+    }
   }
 
 
