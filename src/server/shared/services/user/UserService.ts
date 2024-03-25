@@ -45,4 +45,24 @@ export class UserService {
     }
   }
 
+  async delete(id: string) {
+    try {
+      const userDelete = await this.userRepository.findOne({
+        where: { id }
+      });
+
+      if (!userDelete) {
+        throw new Error('User not found');
+      }
+
+      await this.userRepository.delete(id);
+
+      return { message: 'User deleted' };
+
+    } catch (error) {
+      console.log(error, 'erro no service, delete()');
+      throw new Error('Internal Server Error');
+    }
+  }
+
 }
