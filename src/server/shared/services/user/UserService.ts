@@ -10,7 +10,7 @@ export class UserService {
     try {
 
       const currentDate = new Date();
-      currentDate.setHours(currentDate.getHours() - 3);
+      // currentDate.setHours(currentDate.getHours() - 3);
 
       const user = this.userRepository.create({
         ...data,

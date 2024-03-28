@@ -14,7 +14,7 @@ export class ProductModel {
   @JoinColumn({ name: 'category_id' })
     category: CategoryModel;
 
-  @OneToMany(type => OrderItemModel, orderItem => orderItem.productId) 
+  @OneToMany(type => OrderItemModel, orderItem => orderItem.product) 
     orderItems: OrderItemModel[];
 
   @Column()
