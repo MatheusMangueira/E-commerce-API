@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ProductController } from '../controllers';
+import { OrderController, ProductController } from '../controllers';
 import { CategoryController } from '../controllers/category/CategoryController';
 import { UserController } from '../controllers/user/UserController';
 
@@ -15,7 +15,7 @@ export class AllRouter {
     this.router.post('/produtos', ProductController.validation, ProductController.create);
     this.router.get('/produtos', ProductController.getAll);
     this.router.get('/produtos/:id', ProductController.getById);
-    this.router.put('/produtos/:id', ProductController.validation, ProductController.update);
+    this.router.put('/produtos/:id', ProductController.update);
     this.router.delete('/produtos/:id', ProductController.delete);
   }
 
@@ -33,10 +33,15 @@ export class AllRouter {
     this.router.delete('/usuario/:id', UserController.delete);
   }
 
+  private orderRoutes() {
+    this.router.post('/pedido', OrderController.validation, OrderController.create);
+  }
+
   private setupRoutes() {
     this.productRoutes();
     this.categoryRoutes();
     this.userRoutes();
+    this.orderRoutes();
   }
 
 
