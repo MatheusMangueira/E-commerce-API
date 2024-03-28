@@ -1,6 +1,9 @@
 import { AppDataSource } from '../../config/database';
 import { ProductModel, UserModal, CategoryModel } from '../../model';
-import { ProductService, CategoryService, UserService } from '../services';
+import { OrderModel } from '../../model/order/orderModel';
+import { OrderItemModel } from '../../model/orderItem/orderItemModel ';
+import { ProductService, CategoryService, UserService, OrderItemService } from '../services';
+import { OrderService } from '../services/order/OrderService';
 
 
 
@@ -13,5 +16,17 @@ export const categoryServiceInstance = new CategoryService(
 );
 
 export const userServiceInstance = new UserService(
-  AppDataSource.getRepository(UserModal)
+  AppDataSource.getRepository(UserModal),
+);
+
+export const orderServiceInstance = new OrderService(
+  AppDataSource.getRepository(OrderModel),
+  AppDataSource.getRepository(UserModal),
+  AppDataSource.getRepository(OrderItemModel),
+);
+
+export const orderItemServiceInstance = new OrderItemService(
+  AppDataSource.getRepository(OrderItemModel),
+  AppDataSource.getRepository(OrderModel),
+  AppDataSource.getRepository(ProductModel),
 );
