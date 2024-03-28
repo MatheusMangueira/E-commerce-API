@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { OrderModel } from '../order/orderModel';
 
 
 @Entity('user')
@@ -15,6 +16,7 @@ export class UserModal {
   @Column()
     email: string;
 
-    @CreateDateColumn()
-      createdAt: Date;
+  @CreateDateColumn()
+    createdAt: Date;
+
 }
