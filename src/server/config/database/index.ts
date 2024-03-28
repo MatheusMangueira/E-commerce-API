@@ -1,6 +1,8 @@
 import { DataSource } from 'typeorm';
 import { ProductModel, CategoryModel, UserModal } from '../../model';
 import 'dotenv/config';
+import { OrderModel } from '../../model/order/orderModel';
+import { OrderItemModel } from '../../model/orderItem/orderItemModel ';
 
 
 export const AppDataSource = new DataSource({
@@ -11,6 +13,6 @@ export const AppDataSource = new DataSource({
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
   synchronize: true,
-  entities: [ProductModel, CategoryModel, UserModal],
+  entities: [ProductModel, CategoryModel, UserModal, OrderModel, OrderItemModel],
 });
 
