@@ -3,11 +3,9 @@
 Este projeto de e-commerce foi desenvolvido como parte de um estudo prático sobre o desenvolvimento de aplicativos web modernos. A iniciativa surge da necessidade de aprimorar habilidades em desenvolvimento de software, especialmente no contexto de comércio eletrônico.
 
 ### O projeto utiliza tecnologias como:
+<br/>
 
-- <strong>Node.js:</strong> para a construção do backend, permitindo a criação de servidores web eficientes e escaláveis.
-- <strong>PostgreSQL:</strong> para gerenciar o armazenamento de dados, proporcionando uma compreensão prática sobre bancos de dados relacionais.
-- <strong>Docker:</strong> para facilitar a criação de um ambiente de desenvolvimento consistente e portátil.
-- <strong>Express:</strong> para simplificar o desenvolvimento de rotas e manipulação de requisições HTTP.
+  <img src="https://skillicons.dev/icons?i=git,docker,ts,nodejs,postgres" />
 
 ### Dúvidas e solicitações relacionadas a integração e API, devem ser enviadas para o [linkedin](https://www.linkedin.com/in/matheusmangueira/)
 
