@@ -11,14 +11,14 @@ export class OrderItemService {
   ) { }
 
   async create(data: OrderItemDto) {
-  
+
     try {
       const product = await this.productRepository.findOne({
         where: { id: data.product.id }
       });
 
       if (!product) {
-        throw new Error(`Product with ID ${ data.product.id} not found`);
+        throw new Error(`Product with ID ${data.product.id} not found`);
       }
 
       const order = await this.orderRepository.findOne({
@@ -30,7 +30,7 @@ export class OrderItemService {
       }
 
       const orderItem = this.orderItemRepository.create({
-        productId: product,
+        product: product,
         order: order,
         quantity: data.quantity
       });

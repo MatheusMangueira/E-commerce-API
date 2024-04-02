@@ -1,21 +1,22 @@
 import { Repository } from 'typeorm';
 import { OrderModel } from '../../../model/order/orderModel';
 import { OrderDto } from '../../../DTOs/orderDto/OrderDto';
-import { UserModal } from '../../../model';
+import { ProductModel, UserModal } from '../../../model';
 import { OrderItemModel } from '../../../model/orderItem/orderItemModel ';
 
 export class OrderService {
   constructor(
     private orderRepository: Repository<OrderModel>,
     private userRepository: Repository<UserModal>,
-    private orderItemRepository: Repository<OrderItemModel>
+    private orderItemRepository: Repository<OrderItemModel>,
+    private productRepository: Repository<ProductModel>
   ) { }
 
 
   async create(data: OrderDto) {
     try {
       const currentDate = new Date();
-      currentDate.setHours(currentDate.getHours() - 3);
+      // currentDate.setHours(currentDate.getHours() - 3);
 
       const user = await this.userRepository.findOne({
         where: { id: data.userId }
@@ -25,15 +26,29 @@ export class OrderService {
         throw new Error(`User with ID ${data.userId} not found`);
       }
 
-      const orderItems = data.orderItem.map(itemData => {
-        const orderItem = this.orderItemRepository.create({
-          productId: itemData.product,
-          quantity: itemData.quantity
-        
+      const orderItems = await Promise.all(data.orderItem.map(async itemData => {
+        const product = await this.productRepository.findOne({
+          where: { id: itemData.product.id }
         });
-        return orderItem;
 
-      });
+        if (!product) {
+          throw new Error(`Product with ID ${itemData.product.id} not found`);
+        }
+
+        if (product.stock < itemData.quantity) {
+          throw new Error(`Product with ID ${itemData.product.id} out of stock`);
+        }
+
+        product.stock -= itemData.quantity;
+        await this.productRepository.save(product);
+
+        const orderItem = this.orderItemRepository.create({
+          product: itemData.product,
+          quantity: itemData.quantity
+        });
+
+        return orderItem;
+      }));
 
       const createdOrderItems = await this.orderItemRepository.save(orderItems);
 
@@ -45,10 +60,7 @@ export class OrderService {
 
       const createdOrder = await this.orderRepository.save(order);
 
-     
-
       return createdOrder;
-
 
     } catch (error) {
       console.log(error, 'erro no service, create()');
@@ -56,8 +68,5 @@ export class OrderService {
     }
 
   }
-
-
-
 
 }

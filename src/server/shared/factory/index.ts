@@ -23,6 +23,7 @@ export const orderServiceInstance = new OrderService(
   AppDataSource.getRepository(OrderModel),
   AppDataSource.getRepository(UserModal),
   AppDataSource.getRepository(OrderItemModel),
+  AppDataSource.getRepository(ProductModel),
 );
 
 export const orderItemServiceInstance = new OrderItemService(
