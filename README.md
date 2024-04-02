@@ -3,7 +3,7 @@
 Dúvidas e solicitações relacionadas a integração e API, devem ser enviadas para o [linkedin](https://www.linkedin.com/in/matheusmangueira/)
 
 Recursos disponíveis para acesso via API:
-* [**Úsuario**](#reference/recursos/empresa)
+* [**Produtos**](#Produtos)
 
 ## URLs de acesso
 
