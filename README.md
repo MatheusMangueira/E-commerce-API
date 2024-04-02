@@ -5,6 +5,8 @@ Dúvidas e solicitações relacionadas a integração e API, devem ser enviadas 
 Recursos disponíveis para acesso via API:
 * [**Produtos**](#Produtos)
 * [**Catagorias**](#Catagorias)
+* [**Usuário**](#Usuário)
+* [**Pedidos**](#Pedidos)
 
 ## URLs de acesso
 
