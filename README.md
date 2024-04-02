@@ -4,6 +4,7 @@ Dúvidas e solicitações relacionadas a integração e API, devem ser enviadas 
 
 Recursos disponíveis para acesso via API:
 * [**Produtos**](#Produtos)
+* [**Catagorias**](#Catagorias)
 
 ## URLs de acesso
 
@@ -69,7 +70,7 @@ As ações de `listar` permitem o envio dos seguintes parâmetros:
 + Response 500 (application/json)
 
           {
-             message: 'Internal Sesrver Error'
+             message: 'Internal Server Error'
           }
 
 
@@ -91,7 +92,7 @@ As ações de `listar` permitem o envio dos seguintes parâmetros:
 + Response 500 (application/json)
 
           {
-             message: 'Internal Sesrver Error'
+             message: 'Internal Server Error'
           }
 
 
@@ -120,7 +121,7 @@ As ações de `listar` permitem o envio dos seguintes parâmetros:
 + Response 500 (application/json)
 
           {
-             message: 'Internal Sesrver Error'
+             message: 'Internal Server Error'
           }
 
 
@@ -162,7 +163,7 @@ As ações de `listar` permitem o envio dos seguintes parâmetros:
 + Response 500 (application/json)
 
           {
-             message: 'Internal Sesrver Error'
+             message: 'Internal Server Error'
           }
 
 
@@ -179,10 +180,264 @@ As ações de `listar` permitem o envio dos seguintes parâmetros:
 + Response 500 (application/json)
 
           {
-             message: 'Internal Sesrver Error'
+             message: 'Internal Server Error'
           }
 
 
 
-    
+# Catagorias
 
+### Listar (List) [GET /categorias]
+
++ Request (application/json)
+
+  + Parameters
+      - page: 1
+      - limit: 10
+    
++ Response 200 (application/json)
+
+          {
+           "message": "Categories found"
+           "category": [
+              {
+                "id": "e6fac464-335c-4456-9216-0b586952cb9c",
+                "name": "MASCULINO"
+              }
+            ]
+          }
+
++ Response 500 (application/json)
+
+          {
+             message: 'Internal Server Error'
+          }
+
+
+
+### Detalhar (List) [GET /categorias/{id}]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+          {
+           "message": "Categories found"
+           "category": [
+              {
+                "id": "e6fac464-335c-4456-9216-0b586952cb9c",
+                "name": "MASCULINO"
+              }
+            ]
+          }
+
++ Response 500 (application/json)
+
+          {
+             message: 'Internal Server Error'
+          }
+
+
+
+### Criar (create) [POST /categorias]
+
++ Request (application/json)
+
++ Body
+
+          {
+            "name": "MASCULINO"
+          }
+
++ Response 200 (application/json)
+  
+          {
+            "message": "Category created",
+            "category": {
+              "name": "MASCULINO",
+              "id": "8743578f-15ce-4243-85c8-549ba21e5d8e"
+            }
+          }
+
++ Response 500 (application/json)
+
+          {
+             message: 'Internal Server Error'
+          }
+
+
+### Atualizar (update) [PUT /categorias/{id}]
+
++ Request (application/json)
+
++ Body
+    
+          {
+            "name": "FEMININO",
+          }
+
++ Response 200 (application/json)
+  
+          {
+            "message": "Category updated",
+            "category": {
+              "name": "FEMININO",
+              "id": "8743578f-15ce-4243-85c8-549ba21e5d8e"
+            }
+          }
+
++ Response 500 (application/json)
+
+          {
+             message: 'Internal Server Error'
+          }
+
+
+### Deletar (delete) [DELETE /categorias/{id}]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+          {
+             message: "Category deleted"
+          }
+
++ Response 500 (application/json)
+
+          {
+             message: 'Internal Server Error'
+          }
+
+
+
+# Usuário
+
+### Listar (List) [GET /usuario]
+
++ Request (application/json)
+
+  + Parameters
+      - page: 1
+      - limit: 10
+    
++ Response 200 (application/json)
+
+          {
+           "message": "Users found",
+           "user": [
+              {
+                "id": "839497e5-8080-4c44-9294-a8782810a7ec",
+                "fullName": "Matheus Mangueira ",
+                "email": "matheus@testando.com",
+                "createdAt": "2024-03-22T20:04:51.713Z"
+              }
+            ]
+          }
+
++ Response 500 (application/json)
+
+          {
+             message: 'Internal Server Error'
+          }
+
+
+### Criar (create) [POST /usuario]
+
++ Request (application/json)
+
++ Body
+
+          {
+           "fullName":"teste Mangueira ",
+            "email": "teste@testando.com"
+          }
+
++ Response 200 (application/json)
+  
+          {
+            "message": "Category created",
+            "user": [
+              {
+                "id": "839497e5-8080-4c44-9294-a8782810a7ec",
+                "fullName": "teste Mangueira" ,
+                "email": "teste@testando.com",
+                "createdAt": "2024-03-22T20:04:51.713Z"
+              }
+            ]
+          }
+
++ Response 500 (application/json)
+
+          {
+             message: 'Internal Server Error'
+          }
+
+
+### Deletar (delete) [DELETE /usuario/{id}]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+          {
+             message: "User deleted"
+          }
+
++ Response 500 (application/json)
+
+          {
+             message: 'Internal Server Error'
+          }
+
+
+# Pedidos
+
+### Criar (create) [POST /pedido]
+
++ Request (application/json)
+
++ Body
+
+          {
+           "userId": "98979b4b-975f-4744-99fa-c1b8ffa59d4b",
+            "orderItem": [
+            {
+		        "product":"5b6322e2-2f9a-4a40-9f36-c44ca1e4f5a6",
+		        "quantity": 10
+	          }
+          ]
+          }
+
++ Response 200 (application/json)
+  
+          {
+            "message": "Order created",
+            "order": {
+               "orderDate": "2024-04-02T18:51:29.570Z",
+                "user": {
+                  "id": "98979b4b-975f-4744-99fa-c1b8ffa59d4b",
+                  "fullName": "MONISE Mangueira ",
+                  "email": "MONISE@testando.com",
+                  "createdAt": "2024-03-28T01:40:53.791Z"
+                },
+            "orderItem": [
+              {
+                "id": "763944c3-69ae-431b-8661-2216017052eb",
+                "quantity": 10,
+                "product": "5b6322e2-2f9a-4a40-9f36-c44ca1e4f5a6"
+              }
+            ],
+            "id": "ce5dee2b-db28-4664-9b0c-f11dcbec2d13"
+            }
+          }
+
++ Response 500 (application/json)
+
+          {
+             message: 'Internal Server Error'
+          }
+
+
+
+  
