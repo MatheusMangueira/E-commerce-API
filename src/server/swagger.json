@@ -1,1 +1,588 @@
-{}
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Ecommerce Application API Documentation",
+    "description": "API Documentation for Ecommerce Application",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "",
+  "tags": [
+    {
+      "name": "Produtos",
+      "description": "API for Produtos in the system"
+    },
+    {
+      "name": "Categorias",
+      "description": "API for categories in the system"
+    },
+    {
+      "name": "usuario",
+      "description": "API for user in the system"
+    },
+    {
+      "name": "Pedido",
+      "description": "API for order in the system"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+
+  "paths": {
+    "/produtos": {
+      "get": {
+        "tags": ["Produtos"],
+        "summary": "Get all products",
+        "description": "Get all products",
+        "operationId": "getProducts",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number for pagination",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit of items to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ProductGetAll"
+              }
+            }
+          },
+          "400": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new product",
+        "description": "Add a new product",
+        "tags": ["Produtos"],
+        "parameters": [
+          {
+            "name": "product",
+            "in": "body",
+            "description": "Product object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ProductPost"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/produtos/{productId}": {
+      "put": {
+        "summary": "Update a product",
+        "description": "Update a product",
+        "tags": ["Produtos"],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of the product to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "product id",
+            "in": "body",
+            "description": "Product object that needs to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ProductPut"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get a product by ID",
+        "description": "Get a product by ID",
+        "tags": ["Produtos"],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of the product to be retrieved",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/ProductGetAll"
+            }
+          },
+          "400": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a product",
+        "description": "Delete a product",
+        "tags": ["Produtos"],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of the product to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "NO CONTENT - Product deleted"
+          },
+          "400": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+
+    "/categorias": {
+      "get": {
+        "tags": ["Categorias"],
+        "summary": "Get all categories",
+        "description": "Get all categories",
+        "operationId": "getCategories",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number for pagination",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit of items to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CategoryGetAll"
+              }
+            }
+          },
+          "400": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new category",
+        "description": "Add a new category",
+        "tags": ["Categorias"],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "body",
+            "description": "Category object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CategoryPost"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+
+    "/categorias/{categoryId}": {
+      "put": {
+        "summary": "Update a category",
+        "description": "Update a category",
+        "tags": ["Categorias"],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "ID of the category to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "category id",
+            "in": "body",
+            "description": "Category object that needs to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CategoryPost"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a category",
+        "description": "Delete a category",
+        "tags": ["Categorias"],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "ID of the category to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "NO CONTENT - Category deleted"
+          },
+          "400": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+
+    "/usuario": {
+      "get": {
+        "tags": ["usuario"],
+        "summary": "Get all users",
+        "description": "Get all users",
+        "operationId": "getUsers",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number for pagination",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit of items to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/UserGetAll"
+              }
+            }
+          },
+          "400": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new user",
+        "description": "Add a new user",
+        "tags": ["usuario"],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UserPost"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/usuario/{userId}": {
+      "delete": {
+        "summary": "Delete a user",
+        "description": "Delete a user",
+        "tags": ["usuario"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of the user to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "NO CONTENT - User deleted"
+          },
+          "400": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+
+    "/pedido": {
+      "post": {
+        "summary": "Add a new order",
+        "description": "Add a new order",
+        "tags": ["Pedido"],
+        "parameters": [
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Order object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/OrderPost"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "ProductPost": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Product Name"
+          },
+          "price": {
+            "type": "number",
+            "example": 80.99
+          },
+          "description": {
+            "type": "string",
+            "example": "Product Description"
+          },
+          "productImage": {
+            "type": "string",
+            "example": "ProductImage.jpg"
+          },
+          "category": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "e6fac464-335c-4456-9216-0b586952cb9c"
+              }
+            }
+          },
+          "stock": {
+            "type": "number",
+            "example": 10.0
+          }
+        }
+      },
+      "ProductGetAll": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "e6fac464-335c-4456-9216-0b586952cb9c"
+          },
+          "name": {
+            "type": "string",
+            "example": "Product Name"
+          },
+          "price": {
+            "type": "number",
+            "format": "double",
+            "example": 80.99
+          },
+          "description": {
+            "type": "string",
+            "example": "Product Description"
+          },
+          "productImage": {
+            "type": "string",
+            "example": "ProductImage.jpg"
+          },
+          "stock": {
+            "type": "number",
+            "example": 10.0
+          }
+        }
+      },
+      "ProductPut": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Product Name Updated"
+          }
+        }
+      },
+      "CategoryGetAll": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "e6fac464-335c-4456-9216-0b586952cb9c"
+          },
+          "name": {
+            "type": "string",
+            "example": "Category Name"
+          }
+        }
+      },
+      "CategoryPost": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Category Name"
+          }
+        }
+      },
+
+      "UserGetAll": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "e6fac464-335c-4456-9216-0b586952cb9c"
+          },
+          "fullName": {
+            "type": "string",
+            "example": "User Name"
+          },
+          "email": {
+            "type": "string",
+            "example": "exemplo@exemplo.com "
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2021-06-01T00:00:00.000Z"
+          }
+        }
+      },
+      "UserPost": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "example": "User Name"
+          },
+          "email": {
+            "type": "string",
+            "example": "exemplo@exemplo.com"
+          }
+        }
+      },
+      "OrderPost": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "example": "98979b4b-975f-4744-99fa-c1b8ffa59d4b"
+          },
+          "orderItem": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "product": {
+                  "type": "string",
+                  "example": "5b6322e2-2f9a-4a40-9f36-c44ca1e4f5a6"
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 2
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
