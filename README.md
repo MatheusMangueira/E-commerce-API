@@ -19,7 +19,15 @@ Recursos disponíveis para acesso via API:
 
 1)  Para testar a API, Faça um clone do repósitorio https://github.com/MatheusMangueira/Ecommerce-API.git
 2)  Configure o docker conforme o especificado no arquivo <strong> docker-compose.yml </strong>
-3)  Acesse http://localhost:3000/api-docs para ver o <strong>swagger</strong> 
+3)  Configure as variaveis de ambiente de acordo com o arquivo <strong> .env.example </strong>
+4)  Acesse http://localhost:3000/api-docs para ver o <strong>swagger</strong> 
+
+
+## Como rodar ?
+```
+npm docker:local
+npm start
+```
 
 ## Métodos
 
